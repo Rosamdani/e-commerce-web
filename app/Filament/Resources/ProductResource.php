@@ -3,9 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Products;
-use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
@@ -17,10 +15,9 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
-use Filament\Support\RawJs;
+use Illuminate\Support\HtmlString;
+use Tapp\FilamentValueRangeFilter\Filters\ValueRangeFilter;
 
 class ProductResource extends Resource
 {
@@ -28,13 +25,15 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+
+    protected static ?string $navigationGroup = 'Product Management';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Group::make()->schema([
                     Section::make('Product Information')
-                        ->description('Product Information')
                         ->schema([
                             TextInput::make('nama')
                                 ->label('Nama Produk')
@@ -68,15 +67,19 @@ class ProductResource extends Resource
                                 ]),
                         ])->columns(2),
                     Section::make("Galeri Produk")
-                        ->description("Galeri Produk")
                         ->schema([
-                            FileUpload::make('product_image')->multiple()
+                            FileUpload::make('images')->multiple()
                                 ->image()
                                 ->required()
+                                // sub label
+                                ->label('Upload gambar')
+                                ->placeholder('Upload beberapa gambar')
                                 ->imageEditor()
                                 ->imageEditorAspectRatios([
                                     '1:1',
                                 ])
+                                ->visibility('public')
+                                ->disk('public')
                                 ->minFiles(1)
                                 ->maxFiles(5)
                                 ->directory('product_images'),
@@ -87,18 +90,29 @@ class ProductResource extends Resource
                     'lg' => 2,
                 ]),
                 Group::make()->schema([
-                    Section::make('Visibilitas')->description('Visibilitas Produk')->schema([
+                    Section::make('Visibilitas')->schema([
                         Select::make('status')
                             ->label('Status')
                             ->options([
                                 'active' => 'Active',
                                 'disabled' => 'Disabled',
                             ])
+                            ->required()
                             ->native(false)
                     ]),
                     Section::make('Tags')->schema([
                         TagsInput::make('tags')
-                            ->label('Tags Produk')
+                            ->label('')
+                    ]),
+                    Section::make('Kategori')->schema([
+                        Select::make('category_id')
+                            ->relationship('category', 'nama')
+                            ->label('Pilih Kategori')
+                            ->createOptionForm([
+                                TextInput::make('nama')
+                                    ->required(),
+                            ])
+                            ->required()
                     ]),
                 ])->columnSpan([
                     'sm' => 3,
@@ -111,12 +125,24 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nama'),
-                Tables\Columns\TextColumn::make('stok'),
-                Tables\Columns\TextColumn::make('harga'),
+                Tables\Columns\ImageColumn::make('images'),
+                Tables\Columns\TextColumn::make('nama')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('stok')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('harga')
+                    ->searchable()
+                    ->sortable()
+                    ->money('IDR', true),
             ])
             ->filters([
-                //
+                ValueRangeFilter::make('range_harga')
+                    ->currency()
+                    ->currencyCode('IDR')
+                    ->locale('id'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

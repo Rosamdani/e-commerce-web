@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('deskripsi');
             $table->integer('harga');
             $table->integer('stok');
+            $table->json('tags')->nullable();
+            $table->text('images');
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->enum('status', ['active', 'disabled'])->default('active');
             $table->timestamps();
         });
