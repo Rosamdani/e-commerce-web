@@ -22,7 +22,7 @@
 
     <script>
         // format uang rupiah ketika element memiliki class price-new
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("livewire:navigated", function() {
             document.querySelectorAll(".price-new").forEach((element) => {
                 element.innerHTML = formatRupiah(element.innerHTML, "Rp. ");
             });

@@ -33,16 +33,14 @@
                                 data-items_column3="1" data-items_column4="1" data-arrows="yes" data-pagination="no"
                                 data-lazyload="yes" data-loop="no" data-hoverpause="yes">
                                 @foreach ($banners as $banner)
-                                    <div class="yt-content-slide">
-                                        <a href="/{{ $banner->link }}"><img
-                                                src="{{ asset('storage/' . $banner->image) }}"
-                                                alt="{{ $banner->title }}" class="img-responsive"></a>
-                                    </div>
+                                <div class="yt-content-slide">
+                                    <a href="/{{ $banner->link }}"><img src="{{ asset('storage/' . $banner->image) }}"
+                                            alt="{{ $banner->title }}" class="img-responsive"></a>
+                                </div>
                                 @endforeach
 
                             </div>
 
-                            <div class="loadeding"></div>
                         </div>
 
                     </div>
@@ -52,30 +50,18 @@
                         <div class="modcontent clearfix">
                             <div class="htmlcontent-block">
                                 <ul class="htmlcontent-home">
+                                    @foreach ($smallBanners as $smallBanner)
                                     <li>
                                         <div class="banners">
                                             <div>
-                                                <a href="#"><img src="image/demo/cms/banner1.jpg"
+                                                <a href="#"><img
+                                                        src="{{ $smallBanner->image ? asset('storage/'. $smallBanner->image) : ''}}"
                                                         alt="banner1"></a>
                                             </div>
                                         </div>
                                     </li>
-                                    <li>
-                                        <div class="banners">
-                                            <div>
-                                                <a href="#"><img src="image/demo/cms/banner2.jpg"
-                                                        alt="banner1"></a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="banners">
-                                            <div>
-                                                <a href="#"><img src="image/demo/cms/banner3.jpg"
-                                                        alt="banner1"></a>
-                                            </div>
-                                        </div>
-                                    </li>
+
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -85,14 +71,14 @@
                         <div class="modcontent clearfix">
                             <div class="policy-detail">
                                 <div class="banner-policy">
-                                    <div class="policy policy1"><a href="#"> <span
-                                                class="ico-policy">&nbsp;</span> 90 day <br> money back </a></div>
-                                    <div class="policy policy2"><a href="#"> <span
-                                                class="ico-policy">&nbsp;</span> In-store exchange </a></div>
-                                    <div class="policy policy3"><a href="#"> <span
-                                                class="ico-policy">&nbsp;</span> lowest price guarantee </a></div>
-                                    <div class="policy policy4"><a href="#"> <span
-                                                class="ico-policy">&nbsp;</span> shopping guarantee </a></div>
+                                    <div class="policy policy1"><a href="#"> <span class="ico-policy">&nbsp;</span> 90
+                                            day <br> money back </a></div>
+                                    <div class="policy policy2"><a href="#"> <span class="ico-policy">&nbsp;</span>
+                                            In-store exchange </a></div>
+                                    <div class="policy policy3"><a href="#"> <span class="ico-policy">&nbsp;</span>
+                                            lowest price guarantee </a></div>
+                                    <div class="policy policy4"><a href="#"> <span class="ico-policy">&nbsp;</span>
+                                            shopping guarantee </a></div>
                                 </div>
                             </div>
                         </div>

@@ -26,7 +26,10 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('nama')
-                    ->required()
+                    ->required(),
+                Forms\Components\Textarea::make('description')->required(),
+                Forms\Components\FileUpload::make('image')->label('Gambar')->image()->required(),
+
             ])->columns(1);
     }
 

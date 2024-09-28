@@ -8,7 +8,6 @@
                 <div class="module tab-slider titleLine">
                     <h3 class="modtitle">Featured Product</h3>
                     <div id="so_listing_tabs_1" class="so-listing-tabs first-load module">
-                        <div class="loadeding"></div>
                         <div class="ltabs-wrap">
                             <div class="ltabs-tabs-container" data-rtl="yes" data-delay="300" data-duration="600"
                                 data-effect="starwars" data-ajaxurl="" data-type_source="0" data-lg="4" data-md="3"
@@ -57,7 +56,7 @@
                                                 </div>
                                                 <div class="right-block">
                                                     <div class="caption">
-                                                        <h4><a href="product.html"
+                                                        <h4><a href="/product/{{$product->id}}"
                                                                 wire:key="{{$product->id}}">{{$product->nama}}</a>
                                                         </h4>
                                                         <div class="ratings">
@@ -87,15 +86,13 @@
 
                                                     <div class="button-group">
                                                         <button class="addToCart" type="button" data-toggle="tooltip"
-                                                            title="Add to Cart" onclick="cart.add('42', '1');"><i
+                                                            title="Add to Cart"
+                                                            wire:click='addToCart({{$product->id}})'><i
                                                                 class="fa fa-shopping-cart"></i> <span class="">Add
                                                                 to Cart</span></button>
                                                         <button class="wishlist" type="button" data-toggle="tooltip"
                                                             title="Add to Wish List" onclick="wishlist.add('42');"><i
                                                                 class="fa fa-heart"></i></button>
-                                                        <button class="compare" type="button" data-toggle="tooltip"
-                                                            title="Compare this Product" onclick="compare.add('42');"><i
-                                                                class="fa fa-exchange"></i></button>
                                                     </div>
                                                 </div><!-- right block -->
                                             </div>
@@ -160,7 +157,6 @@
                 <div class="module tab-slider titleLine">
                     <h3 class="modtitle">New Products</h3>
                     <div id="so_listing_tabs_2" class="so-listing-tabs first-load module">
-                        <div class="loadeding"></div>
                         <div class="ltabs-wrap">
                             <div class="ltabs-tabs-container" data-rtl="yes" data-delay="300" data-duration="600"
                                 data-effect="starwars" data-ajaxurl="" data-type_source="0" data-lg="4" data-md="3"

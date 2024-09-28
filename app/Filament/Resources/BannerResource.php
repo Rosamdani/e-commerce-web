@@ -25,6 +25,18 @@ class BannerResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('title')->required(),
                 Forms\Components\TextInput::make('link')->rules('url'),
+                Forms\Components\Select::make('status')
+                    ->options([
+                        'active' => 'Active',
+                        'disabled' => 'Disabled',
+                    ])
+                    ->default('active'),
+                Forms\Components\Select::make('size')
+                    ->options([
+                        'large' => 'Large (670 x 300)',
+                        'medium' => 'Medium (370 x 290)',
+                        'small' => 'Small (260 x 130)',
+                    ]),
                 Forms\Components\FileUpload::make('image')->label('Gambar')->image()->required()->columnSpan(2),
             ]);
     }

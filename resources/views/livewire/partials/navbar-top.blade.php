@@ -15,10 +15,10 @@
                             class="fa fa-angle-down"></i></a></h5>
                 <div class="tabBlock" id="TabBlock-1">
                     <ul class="top-link list-inline">
+                        @if ($isLoggedIn)
                         <li class="account" id="my_account">
-                            <a href="#" title="My Account" class="btn btn-xs dropdown-toggle"
-                                data-toggle="dropdown"> <span>My Account</span> <span
-                                    class="fa fa-angle-down"></span></a>
+                            <a href="#" title="My Account" class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
+                                <span>My Account</span> <span class="fa fa-angle-down"></span></a>
                             <ul class="dropdown-menu ">
                                 <li><a href="/register" wire:navigate><i class="fa fa-user"></i> Register</a></li>
                                 <li><a href="/login" wire:navigate><i class="fa fa-pencil-square-o"></i> Login</a>
@@ -32,6 +32,16 @@
                                 title="Checkout"><span>Checkout</span></a></li>
                         <li class="login"><a href="/cart" wire:navigate title="Shopping Cart"><span>Shopping
                                     Cart</span></a></li>
+                        @else
+                        <li class="account" id="my_account">
+                            <a href="/login" wire:navigate title="My Account" class="btn btn-xs">
+                                <span>Login</span></a>
+                        </li>
+                        <li class="account" id="my_account">
+                            <a href="/register" wire:navigate title="My Account" class="btn btn-xs">
+                                <span>Register</span></a>
+                        </li>
+                        @endif
                     </ul>
                 </div>
             </div>

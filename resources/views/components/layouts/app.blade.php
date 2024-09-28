@@ -43,6 +43,7 @@
     <link href="css/header1.css" rel="stylesheet">
     <link id="color_scheme" href="css/theme.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
+    <script src='/app.js'></script>
 
     <title>{{ $title ?? 'Market' }}</title>
     @livewireStyles
